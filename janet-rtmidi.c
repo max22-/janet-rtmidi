@@ -1,7 +1,7 @@
 #include <janet.h>
 #include <rtmidi_c.h>
 
-static Janet open_virtual_output(int32_t argc, Janet *argv) {
+static Janet open_virtual_output_port(int32_t argc, Janet *argv) {
   RtMidiOutPtr out;
   janet_fixarity(argc, 1);
   out = rtmidi_out_create_default();
@@ -51,7 +51,7 @@ static Janet note_off(int32_t argc, Janet *argv) {
 
 
 static const JanetReg cfuns[] = {
-    {"open-virtual-output", open_virtual_output, "(rtmidi/open-virtual-output name)\n\nOpens a virtual output port"},
+    {"open-virtual-output-port", open_virtual_output_port, "(rtmidi/open-virtual-output-port name)\n\nOpens a virtual output port"},
     {"close-port", close_port, "(rtmidi/close-port)\n\nCloses a port"},
     {"note-on", note_on, "(rtmidi/note-on port channel note velocity)\n\nSends a midi \"note on\" message"},
     {"note-off", note_off, "(rtmidi/note-off port channel note velocity)\n\nSends a midi \"note off\" message"},
