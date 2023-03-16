@@ -13,6 +13,18 @@ static Janet open_virtual_output_port(int32_t argc, Janet *argv) {
   return janet_wrap_pointer(out);
 }
 
+static Janet open_output_port(int32_t argc, Janet *argv) {
+  RtMidiOutPtr out;
+  janet_fixarity(argc, 2);
+  out = rtmidi_out_create_default();
+  if(!out->ok)
+    janet_panic(out->msg);
+  rtmidi_open_port(out, janet_getinteger(argv, 0), janet_getstring(argv, 1));
+  if(!out->ok)
+    janet_panic(out->msg);
+  return janet_wrap_pointer(out);
+}
+
 static Janet close_port(int32_t argc, Janet *argv) {
   RtMidiPtr dev;
   janet_fixarity(argc, 1);
@@ -52,6 +64,7 @@ static Janet note_off(int32_t argc, Janet *argv) {
 
 static const JanetReg cfuns[] = {
     {"open-virtual-output-port", open_virtual_output_port, "(rtmidi/open-virtual-output-port name)\n\nOpens a virtual output port"},
+    {"open-output-port", open_output_port, "(rtmidi/open-output-port port-number name)\n\nOpens an output port"},
     {"close-port", close_port, "(rtmidi/close-port)\n\nCloses a port"},
     {"note-on", note_on, "(rtmidi/note-on port channel note velocity)\n\nSends a midi \"note on\" message"},
     {"note-off", note_off, "(rtmidi/note-off port channel note velocity)\n\nSends a midi \"note off\" message"},
