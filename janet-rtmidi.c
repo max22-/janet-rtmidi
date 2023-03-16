@@ -1,5 +1,5 @@
 #include <janet.h>
-#include <rtmidi_c.h>
+#include <rtmidi/rtmidi_c.h>
 
 static Janet open_virtual_output_port(int32_t argc, Janet *argv) {
   RtMidiOutPtr out;
