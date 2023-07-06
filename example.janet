@@ -1,5 +1,5 @@
 (import ./build/rtmidi :as rtmidi)
-(def port (rtmidi/open-virtual-output "janet"))
+(def port (rtmidi/open-virtual-output-port "janet"))
 (forever
  (rtmidi/note-on port 0 69 127)
  (ev/sleep 1)
